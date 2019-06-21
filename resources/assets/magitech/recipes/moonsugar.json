@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    
+    "ingredients": [
+    {
+        "item": "minecraft:sugar",
+        "data": 0
+    },
+    {
+        "item": "minecraft:redstone",
+        "data": 0
+    },
+    {
+        "item": "magitech:lunarstoneDust",
+        "data": 0
+    }
+    ],
+    "result": {
+        "item": "magitech:moonsugar",
+        "data": 0,
+        "count": 1
+    }
+}   

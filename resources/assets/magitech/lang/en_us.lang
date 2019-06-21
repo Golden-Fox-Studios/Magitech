@@ -1,0 +1,10 @@
+tile.smallKettle.name=Small Kettle
+tile.smallPot.name=Small Pot
+tile.lunarstone.name=Lunarstone
+
+item.luminux.name=Luminux
+item.moonSugar.name=Moon Sugar
+item.mortarAndPestle.name=Mortar and Pestle
+item.lunarstoneDust.name=Lunarstone Dust
+
+itemGroup.tabMagitech=Magitech

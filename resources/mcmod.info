@@ -1,0 +1,16 @@
+[
+{
+  "modid": "magitech",
+  "name": "Magitech",
+  "description": "A thaumcraft inspired mod focusing on alchemy.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["SuperKooks", "a_cat_"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
