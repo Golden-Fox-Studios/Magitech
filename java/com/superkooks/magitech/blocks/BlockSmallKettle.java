@@ -11,10 +11,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 
 public class BlockSmallKettle extends Block {
-
-	public List<Item> contents = new ArrayList<Item>();
-	public Brew brew = null;
-	public boolean boiling = false;
 	
 	public BlockSmallKettle(String name, Material material) {
 		super(material);

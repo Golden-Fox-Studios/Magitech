@@ -1,5 +1,6 @@
 package com.superkooks.magitech.brews;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import com.superkooks.magitech.MTItems;
@@ -13,4 +14,8 @@ public class BrewLuminux extends Brew {
 	public static final ItemStack CATALYST = new ItemStack(MTItems.itemMoonSugar);
 	
 	public static final ItemStack OUTPUT = new ItemStack(MTItems.itemLuminux);
+	
+	public BrewLuminux checkForBrew(ArrayList<ItemStack> contents) {
+		return null;
+	}
 }

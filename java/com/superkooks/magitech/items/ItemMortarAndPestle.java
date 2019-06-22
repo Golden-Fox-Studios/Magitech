@@ -3,6 +3,7 @@ package com.superkooks.magitech.items;
 import com.superkooks.magitech.MTItems;
 import com.superkooks.magitech.Magitech;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -13,6 +14,7 @@ public class ItemMortarAndPestle extends Item {
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setCreativeTab(Magitech.tabMagitech);
+		this.setContainerItem(Items.BUCKET);
 	}
 	
 	public void registerModels() {
@@ -26,6 +28,16 @@ public class ItemMortarAndPestle extends Item {
 	
 	@Override
 	public ItemStack getContainerItem(ItemStack item) {
-		return new ItemStack(MTItems.itemMortarAndPestle);
+		return new ItemStack(Items.BUCKET);
+	}
+	
+	@Override 
+	public boolean hasContainerItem() {
+		return true;
+	}
+	
+	@Override
+	public Item getContainerItem() {
+		return Items.BUCKET;
 	}
 }

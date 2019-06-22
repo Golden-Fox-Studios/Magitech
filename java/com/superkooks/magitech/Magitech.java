@@ -1,8 +1,10 @@
 package com.superkooks.magitech;
 
 import com.superkooks.magitech.proxy.CommonProxy;
+import com.superkooks.magitech.tiles.TileSmallPot;
 import com.superkooks.magitech.world.WorldGen;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,6 +31,7 @@ public class Magitech {
 		MTItems.initItems();
 		
 		GameRegistry.registerWorldGenerator(new WorldGen(), 5);
+		GameRegistry.registerTileEntity(TileSmallPot.class, new ModelResourceLocation("smallpot"));
 	}
 	
 	@EventHandler

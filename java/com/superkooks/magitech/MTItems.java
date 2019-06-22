@@ -1,6 +1,7 @@
 package com.superkooks.magitech;
 
 import com.superkooks.magitech.items.ItemBasic;
+import com.superkooks.magitech.items.ItemCatalyst;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -19,7 +20,7 @@ public class MTItems {
 		// Fired in pre-init
 		
 		itemLuminux = new ItemBasic("luminux");
-		itemMoonSugar = new ItemBasic("moonSugar");
+		itemMoonSugar = new ItemCatalyst("moonSugar");
 		itemLunarstoneDust = new ItemBasic("lunarstoneDust");
 		itemMortarAndPestle = new ItemBasic("mortarAndPestle");
 		
