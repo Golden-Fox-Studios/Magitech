@@ -1,9 +1,5 @@
 {
     "variants": {
-        "normal": { "model": "magitech:smallpot" },
-        "water": { "model": "magitech:smallpot-water" },
-        "ingredients": { "model": "magitech:smallpot-ingredients" },
-        "brew": { "model": "magitech:smallpot-brew" },
-        "spoiled": { "model": "magitech:smallpot-spoiled" }
+        "normal": { "model": "magitech:smallpot" }
     }
 }

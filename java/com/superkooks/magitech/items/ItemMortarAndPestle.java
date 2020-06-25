@@ -1,43 +1,22 @@
 package com.superkooks.magitech.items;
 
 import com.superkooks.magitech.MTItems;
-import com.superkooks.magitech.Magitech;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class ItemMortarAndPestle extends Item {
-	// Annoyingly this has to be in a separate file so it is not used in crafting recipes
-	
+public class ItemMortarAndPestle extends ItemBasic {
 	public ItemMortarAndPestle(String name) {
-		setUnlocalizedName(name);
-		setRegistryName(name);
-		setCreativeTab(Magitech.tabMagitech);
-		this.setContainerItem(Items.BUCKET);
-	}
-	
-	public void registerModels() {
-		Magitech.proxy.registerItemRenderer(this, 0, "inventory");
+		super(name);
+		this.setContainerItem(MTItems.itemMortarAndPestle);
 	}
 	
 	@Override
-	public boolean hasContainerItem(ItemStack item) {
+	public ItemStack getContainerItem(ItemStack itemStack) {
+		return new ItemStack(MTItems.itemMortarAndPestle);
+	}
+	
+	@Override
+	public boolean hasContainerItem(ItemStack itemStack) {
 		return true;
-	}
-	
-	@Override
-	public ItemStack getContainerItem(ItemStack item) {
-		return new ItemStack(Items.BUCKET);
-	}
-	
-	@Override 
-	public boolean hasContainerItem() {
-		return true;
-	}
-	
-	@Override
-	public Item getContainerItem() {
-		return Items.BUCKET;
 	}
 }

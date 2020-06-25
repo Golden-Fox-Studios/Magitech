@@ -2,6 +2,7 @@ package com.superkooks.magitech;
 
 import com.superkooks.magitech.items.ItemBasic;
 import com.superkooks.magitech.items.ItemCatalyst;
+import com.superkooks.magitech.items.ItemMortarAndPestle;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -15,6 +16,7 @@ public class MTItems {
 	public static Item itemMoonSugar;
 	public static Item itemLunarstoneDust;
 	public static Item itemMortarAndPestle;
+	public static Item itemSpoiledBrew;
 	
 	public static void initItems() {
 		// Fired in pre-init
@@ -22,8 +24,8 @@ public class MTItems {
 		itemLuminux = new ItemBasic("luminux");
 		itemMoonSugar = new ItemCatalyst("moonSugar");
 		itemLunarstoneDust = new ItemBasic("lunarstoneDust");
-		itemMortarAndPestle = new ItemBasic("mortarAndPestle");
-		
+		itemMortarAndPestle = new ItemMortarAndPestle("mortarAndPestle");
+		itemSpoiledBrew = new ItemBasic("spoiledBrew");
 	}
 	
 	//
@@ -35,6 +37,7 @@ public class MTItems {
 		event.getRegistry().register(itemMoonSugar);
 		event.getRegistry().register(itemLunarstoneDust);
 		event.getRegistry().register(itemMortarAndPestle);
+		event.getRegistry().register(itemSpoiledBrew);
 	}
 	
 	@SubscribeEvent
@@ -43,5 +46,6 @@ public class MTItems {
 		((ItemBasic)itemMoonSugar).registerModels();
 		((ItemBasic)itemLunarstoneDust).registerModels();
 		((ItemBasic)itemMortarAndPestle).registerModels();
+		((ItemBasic)itemSpoiledBrew).registerModels();
 	}
 }

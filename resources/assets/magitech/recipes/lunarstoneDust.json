@@ -3,18 +3,14 @@
     
     "ingredients": [
     {
-        "item": "magitech:lunarstone",
-        "data": 0
+        "item": "magitech:lunarstone"
     },
     {
-        "item": "magitech:mortarAndPestle",
-        "data": 0,
-        "consumed": false
+        "item": "magitech:mortarAndPestle"
     }
     ],
     "result": {
         "item": "magitech:lunarstoneDust",
-        "data": 0,
         "count": 2
     }
 }   

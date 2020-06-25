@@ -1,6 +1,7 @@
 package com.superkooks.magitech;
 
 import com.superkooks.magitech.proxy.CommonProxy;
+import com.superkooks.magitech.tiles.TileSmallInfusionVat;
 import com.superkooks.magitech.tiles.TileSmallPot;
 import com.superkooks.magitech.world.WorldGen;
 
@@ -8,6 +9,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -27,11 +29,15 @@ public class Magitech {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		OBJLoader.INSTANCE.addDomain(MODID);
+		
 		MTBlocks.initBlocks();
 		MTItems.initItems();
+		MTBrews.initBrews();
 		
 		GameRegistry.registerWorldGenerator(new WorldGen(), 5);
-		GameRegistry.registerTileEntity(TileSmallPot.class, new ModelResourceLocation("smallpot"));
+		GameRegistry.registerTileEntity(TileSmallPot.class, new ModelResourceLocation("magitech:smallpot"));
+		GameRegistry.registerTileEntity(TileSmallInfusionVat.class, new ModelResourceLocation("magitech:smallinfusionvat"));
 	}
 	
 	@EventHandler
@@ -46,7 +52,7 @@ public class Magitech {
 	
 	public static CreativeTabs tabMagitech = new CreativeTabs("tabMagitech") {
 		public ItemStack getTabIconItem() {
-			return new ItemStack(Item.getItemFromBlock(MTBlocks.blockSmallKettle));
+			return new ItemStack(Item.getItemFromBlock(MTBlocks.blockSmallInfusionVat));
 		}
 	};
 }
