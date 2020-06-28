@@ -1,5 +1,7 @@
 package com.superkooks.magitech.tesr;
 
+import java.awt.Color;
+
 import org.lwjgl.opengl.GL11;
 
 import com.superkooks.magitech.blocks.BlockSmallInfusionVat;
@@ -34,8 +36,10 @@ public class SmallInfusionVatTESR extends TileEntitySpecialRenderer<TileSmallInf
         GlStateManager.translate(x, y, z);
         GlStateManager.disableRescaleNormal();
 
-        // Render the liquid
-        renderLiquid(te);
+        if (te.hasBrew()) {
+	        // Render the liquid
+	        renderLiquid(te);
+        }
         
         // Render the block
         renderVat(te);
@@ -45,6 +49,43 @@ public class SmallInfusionVatTESR extends TileEntitySpecialRenderer<TileSmallInf
 
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();
+	}
+	
+	private void renderLiquid(TileSmallInfusionVat te) {
+		GlStateManager.pushMatrix();
+		GlStateManager.disableLighting();
+		GlStateManager.disableTexture2D();
+		GlStateManager.enableBlend();
+		GlStateManager.disableAlpha();
+		GlStateManager.enableDepth();
+		GlStateManager.disableCull();
+        GlStateManager.depthMask(false);
+
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuffer();
+        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+        
+        Color brewColor = te.getCurrentBrew().getColor();
+        
+        buffer.pos(0, 1, 0).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        buffer.pos(1, 1, 0).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        buffer.pos(1, 2, 0).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        buffer.pos(0, 2, 0).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+
+//        buffer.pos(0, 1, 0.5).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+//        buffer.pos(1, 1, 0.5).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+//        buffer.pos(1, 2, 0.5).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+//        buffer.pos(0, 2, 0.5).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        
+        tessellator.draw();
+
+        GlStateManager.disableBlend();
+        GlStateManager.enableCull();
+		GlStateManager.enableAlpha();
+		GlStateManager.enableTexture2D();
+        GlStateManager.depthMask(true);
+        GlStateManager.enableLighting();
+        GlStateManager.popMatrix();
 	}
 
 	private void renderVat(TileSmallInfusionVat te) {

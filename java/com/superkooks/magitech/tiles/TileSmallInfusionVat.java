@@ -1,5 +1,8 @@
 package com.superkooks.magitech.tiles;
 
+import com.superkooks.magitech.MTBrews;
+import com.superkooks.magitech.brews.IBrew;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -13,6 +16,7 @@ import net.minecraft.world.World;
 
 public class TileSmallInfusionVat extends TileEntity implements ITickable {
 	private ItemStack infusionItem = new ItemStack(Items.CARROT_ON_A_STICK);
+	private IBrew currentBrew = MTBrews.brewLuminux;
 	
 	public void update() {
 		
@@ -20,6 +24,18 @@ public class TileSmallInfusionVat extends TileEntity implements ITickable {
 	
 	public ItemStack getInfusionItem() {
 		return infusionItem;
+	}
+	
+	public IBrew getCurrentBrew() {
+		return currentBrew;
+	}
+	
+	public boolean hasBrew() {
+		if (currentBrew != null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void interact(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,

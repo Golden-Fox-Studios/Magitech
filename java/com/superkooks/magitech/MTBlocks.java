@@ -1,6 +1,7 @@
 package com.superkooks.magitech;
 
 import com.superkooks.magitech.blocks.BlockBasic;
+import com.superkooks.magitech.blocks.BlockFluid;
 import com.superkooks.magitech.blocks.BlockSmallInfusionVat;
 import com.superkooks.magitech.blocks.BlockSmallPot;
 
@@ -26,6 +27,8 @@ public class MTBlocks {
 	public static Block blockSmallPot_spoiled_boiling;
 	public static Block blockSmallPot_brew;
 	
+	public static Block blockFluidLuminux;
+	
 	public static Item itemBlockSmallInfusionVat;
 	public static Item itemBlockSmallPot;
 	public static Item itemBlockLunarstone;
@@ -44,9 +47,15 @@ public class MTBlocks {
 		blockSmallPot_spoiled_boiling = new BlockSmallPot("smallPot_spoiled_boiling", Material.IRON, true);
 		blockSmallPot_brew = new BlockSmallPot("smallPot_brew", Material.IRON, true);
 		
+		blockFluidLuminux = new BlockFluid("luminux", MTFluids.fluidLuminux);
+		
 		itemBlockSmallInfusionVat = new ItemBlock(blockSmallInfusionVat).setRegistryName("smallinfusionvat");
 		itemBlockSmallPot = new ItemBlock(blockSmallPot).setRegistryName("smallpot");
 		itemBlockLunarstone = new ItemBlock(blockLunarstone).setRegistryName("lunarstone");
+	}
+	
+	public static void renderFluids() {
+		((BlockFluid) blockFluidLuminux).render();
 	}
 	
 	//
@@ -64,6 +73,8 @@ public class MTBlocks {
 		event.getRegistry().register(blockSmallPot_spoiled);
 		event.getRegistry().register(blockSmallPot_spoiled_boiling);
 		event.getRegistry().register(blockSmallPot_brew);
+		
+		event.getRegistry().register(blockFluidLuminux);
 	}
 	
 	@SubscribeEvent
@@ -77,6 +88,6 @@ public class MTBlocks {
 	public static void onModelRegister(ModelRegistryEvent event) {
 		((BlockSmallInfusionVat) blockSmallInfusionVat).initModel();
 		((BlockSmallPot) blockSmallPot).registerModels();
-		((BlockBasic) blockLunarstone).registerModels();
+		((BlockBasic) blockLunarstone).registerModels(); 
 	}
 }

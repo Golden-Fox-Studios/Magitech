@@ -36,7 +36,7 @@ public class BlockSmallInfusionVat extends BlockContainer {
 	protected static final AxisAlignedBB AABB_FSOUTH = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.5D);
 	protected static final AxisAlignedBB AABB_FNORTH = new AxisAlignedBB(0.0D, 0.0D, 1.0D, 1.0D, 1.0D, 0.5D);
 	protected static final AxisAlignedBB AABB_FEAST = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5D, 1.0D, 1.0D);
-	protected static final AxisAlignedBB AABB_FWEST = new AxisAlignedBB(1.0D, 0.0D, 0.0D, 050D, 1.0D, 1.0D);
+	protected static final AxisAlignedBB AABB_FWEST = new AxisAlignedBB(1.0D, 0.0D, 0.0D, 0.5D, 1.0D, 1.0D);
 	
 	public BlockSmallInfusionVat(String name, Material material) {
 		super(material);

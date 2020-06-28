@@ -10,6 +10,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -31,6 +32,8 @@ public class Magitech {
 	public void preInit(FMLPreInitializationEvent event) {
 		OBJLoader.INSTANCE.addDomain(MODID);
 		
+		MTMaterials.initMaterials();
+		MTFluids.initFluids();
 		MTBlocks.initBlocks();
 		MTItems.initItems();
 		MTBrews.initBrews();
@@ -38,6 +41,8 @@ public class Magitech {
 		GameRegistry.registerWorldGenerator(new WorldGen(), 5);
 		GameRegistry.registerTileEntity(TileSmallPot.class, new ModelResourceLocation("magitech:smallpot"));
 		GameRegistry.registerTileEntity(TileSmallInfusionVat.class, new ModelResourceLocation("magitech:smallinfusionvat"));
+	
+		MTBlocks.renderFluids();
 	}
 	
 	@EventHandler
@@ -48,6 +53,10 @@ public class Magitech {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		
+	}
+	
+	static {
+		FluidRegistry.enableUniversalBucket();
 	}
 	
 	public static CreativeTabs tabMagitech = new CreativeTabs("tabMagitech") {

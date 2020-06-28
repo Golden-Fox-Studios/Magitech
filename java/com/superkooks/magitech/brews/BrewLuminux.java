@@ -1,5 +1,6 @@
 package com.superkooks.magitech.brews;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import com.superkooks.magitech.MTBrews;
@@ -20,7 +21,7 @@ public class BrewLuminux implements IBrew {
 	public static final ItemStack CATALYST = new ItemStack(MTItems.itemMoonSugar);
 	
 	public static final ItemStack OUTPUT = new ItemStack(MTItems.itemLuminux, 2);
-	
+	public static final Color COLOR = new Color(255, 191, 0, 150);
 	
 	public BrewLuminux() {
 	}
@@ -39,5 +40,9 @@ public class BrewLuminux implements IBrew {
 	
 	public int getAmountOfLiquid() {
 		return OUTPUT.getCount();
+	}
+	
+	public Color getColor() {
+		return COLOR;
 	}
 }
