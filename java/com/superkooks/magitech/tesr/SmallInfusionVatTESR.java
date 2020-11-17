@@ -14,6 +14,8 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.GlStateManager.DestFactor;
+import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -35,17 +37,17 @@ public class SmallInfusionVatTESR extends TileEntitySpecialRenderer<TileSmallInf
         // Translate to the location of our tile entity
         GlStateManager.translate(x, y, z);
         GlStateManager.disableRescaleNormal();
-
-        if (te.hasBrew()) {
-	        // Render the liquid
-	        renderLiquid(te);
-        }
         
         // Render the block
         renderVat(te);
         
         // Render our item
         renderItem(te);
+        
+        if (te.hasBrew()) {
+	        // Render the liquid
+	        renderLiquid(te);
+        }
 
         GlStateManager.popMatrix();
         GlStateManager.popAttrib();
@@ -53,38 +55,69 @@ public class SmallInfusionVatTESR extends TileEntitySpecialRenderer<TileSmallInf
 	
 	private void renderLiquid(TileSmallInfusionVat te) {
 		GlStateManager.pushMatrix();
+		GlStateManager.enableCull();
 		GlStateManager.disableLighting();
+		GlStateManager.shadeModel(GL11.GL_SMOOTH);
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableBlend();
-		GlStateManager.disableAlpha();
-		GlStateManager.enableDepth();
-		GlStateManager.disableCull();
+		GlStateManager.enableAlpha();
+		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
+		GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
         GlStateManager.depthMask(false);
 
+        // Get direction
+        IBlockState state = te.getWorld().getBlockState(te.getPos());
+        switch (state.getValue(BlockSmallInfusionVat.FACING)) {
+        case NORTH:
+        	GlStateManager.translate(1, 0, 1);
+            GlStateManager.rotate(180, 0, 180, 0);
+            break;
+        case WEST:
+        	GlStateManager.translate(1, 0, 0);
+        	GlStateManager.rotate(-90, 0, 90, 0);
+        	break;
+        case EAST:
+        	GlStateManager.translate(0, 0, 1);
+            GlStateManager.rotate(-90, 0, -90, 0);
+        	break;
+		default:
+			// SOUTH
+			break;
+        }
+        
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
         
         Color brewColor = te.getCurrentBrew().getColor();
         
-        buffer.pos(0, 1, 0).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
-        buffer.pos(1, 1, 0).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
-        buffer.pos(1, 2, 0).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
-        buffer.pos(0, 2, 0).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
-
-//        buffer.pos(0, 1, 0.5).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
-//        buffer.pos(1, 1, 0.5).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
-//        buffer.pos(1, 2, 0.5).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
-//        buffer.pos(0, 2, 0.5).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        double LOW = 2/16D;
+        double HIGH = 1-2/16D;
+        double LIQHEIGHT = 0.7D;
+        
+        buffer.pos(LOW, LIQHEIGHT, 0.05).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        buffer.pos(HIGH, LIQHEIGHT, 0.05).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        buffer.pos(HIGH, LOW, 0.05).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        buffer.pos(LOW, LOW, 0.05).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        
+        buffer.pos(LOW, LOW, 0.45).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        buffer.pos(HIGH, LOW, 0.45).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        buffer.pos(HIGH, LIQHEIGHT, 0.45).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        buffer.pos(LOW, LIQHEIGHT, 0.45).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        
+        buffer.pos(LOW, LIQHEIGHT, 0.45).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        buffer.pos(HIGH, LIQHEIGHT, 0.45).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        buffer.pos(HIGH, LIQHEIGHT, 0.05).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
+        buffer.pos(LOW, LIQHEIGHT, 0.05).color(brewColor.getRed(), brewColor.getGreen(), brewColor.getBlue(), brewColor.getAlpha()).endVertex();
         
         tessellator.draw();
 
         GlStateManager.disableBlend();
-        GlStateManager.enableCull();
 		GlStateManager.enableAlpha();
 		GlStateManager.enableTexture2D();
         GlStateManager.depthMask(true);
         GlStateManager.enableLighting();
+        GlStateManager.disableCull();
         GlStateManager.popMatrix();
 	}
 
@@ -129,19 +162,19 @@ public class SmallInfusionVatTESR extends TileEntitySpecialRenderer<TileSmallInf
             IBlockState state = te.getWorld().getBlockState(te.getPos());
             switch (state.getValue(BlockSmallInfusionVat.FACING)) {
             case NORTH:
-            	GlStateManager.translate(.5, .5, .75);
+            	GlStateManager.translate(.5, .3, .75);
                 GlStateManager.rotate(180, 0, 180, 0);
                 break;
             case SOUTH:
-            	GlStateManager.translate(.5, .5, .25);
+            	GlStateManager.translate(.5, .3, .25);
             	break;
             case EAST:
-            	GlStateManager.translate(.25, .5, .5);
+            	GlStateManager.translate(.25, .3, .5);
                 GlStateManager.rotate(-90, 0, -90, 0);
             	break;
 			default:
 				// WEST
-				GlStateManager.translate(.75, .5, .5);
+				GlStateManager.translate(.75, .3, .5);
 				GlStateManager.rotate(-90, 0, 90, 0);
 				break;
             }
