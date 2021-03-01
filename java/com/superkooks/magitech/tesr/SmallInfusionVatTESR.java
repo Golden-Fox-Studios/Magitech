@@ -56,7 +56,7 @@ public class SmallInfusionVatTESR extends TileEntitySpecialRenderer<TileSmallInf
 	private void renderLiquid(TileSmallInfusionVat te) {
 		GlStateManager.pushMatrix();
 		GlStateManager.enableCull();
-		GlStateManager.disableLighting();
+		GlStateManager.enableLighting();
 		GlStateManager.shadeModel(GL11.GL_SMOOTH);
 		GlStateManager.disableTexture2D();
 		GlStateManager.enableBlend();
@@ -116,7 +116,7 @@ public class SmallInfusionVatTESR extends TileEntitySpecialRenderer<TileSmallInf
 		GlStateManager.enableAlpha();
 		GlStateManager.enableTexture2D();
         GlStateManager.depthMask(true);
-        GlStateManager.enableLighting();
+        GlStateManager.disableLighting();
         GlStateManager.disableCull();
         GlStateManager.popMatrix();
 	}
